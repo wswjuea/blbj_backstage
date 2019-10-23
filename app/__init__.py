@@ -1,7 +1,14 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+import pymysql
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = \
+    "mysql+pymysql://root:Blbj123456@rm-bp16nmlmn159wru4reo.mysql.rds.aliyuncs.com/movie"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["SQLALCHEMY_COMMIT_TEARDOWN"] = True
 app.debug = True
+db = SQLAlchemy(app)
 
 from app.home import home as home_blueprint
 from app.admin import admin as admin_blueprint
