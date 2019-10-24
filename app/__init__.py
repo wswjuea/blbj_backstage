@@ -7,6 +7,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = \
     "mysql+pymysql://root:Blbj123456@rm-bp16nmlmn159wru4reo.mysql.rds.aliyuncs.com/movie"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_COMMIT_TEARDOWN"] = True
+app.config["SECRET_KEY"] = "887771752dac4713b2c4fdbe8a06d5c2"
 app.debug = True
 db = SQLAlchemy(app)
 
