@@ -148,10 +148,10 @@ def movie_add():
             url=url,  # 上传后赋值新的名称
             info=data["info"],
             logo=logo,
-            star=data["star"],
+            star=int(data["star"]),
             playnum=0,
             commentnum=0,
-            tag_id=data["tag_id"],
+            tag_id=int(data["tag_id"]),
             area=data["area"],
             release_time=data["release_time"],
             length=data["length"]
