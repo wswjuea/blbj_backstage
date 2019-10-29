@@ -21,6 +21,10 @@ class User(db.Model):
     def __repr__(self):
         return "<User %r>" % self.name
 
+    def check_pwd(self, pwd):
+        from werkzeug.security import check_password_hash
+        return check_password_hash(self.pwd, pwd)
+
 
 # 会员登录日志
 class Userlog(db.Model):
@@ -125,6 +129,7 @@ class Role(db.Model):
     name = db.Column(db.String(100), unique=True)
     auths = db.Column(db.String(600))
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)
+    admins = db.relationship("Admin", backref='role')  # 管理员外键关系关联
 
     def __repr__(self):
         return "<Role %r>" % self.name
@@ -139,8 +144,8 @@ class Admin(db.Model):
     is_super = db.Column(db.SmallInteger)  # 0为超级管理员
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)
-    adminlogs = db.relationship("Adminlog", backref='admin')  #管理员登录日志外键关系关联
-    oplogs = db.relationship("Oplog", backref='admin')  #管理员操作外键关系关联
+    adminlogs = db.relationship("Adminlog", backref='admin')  # 管理员登录日志外键关系关联
+    oplogs = db.relationship("Oplog", backref='admin')  # 管理员操作外键关系关联
 
     def __repr__(self):
         return "<Admin %r>" % self.name
@@ -174,21 +179,20 @@ class Oplog(db.Model):
     def __repr__(self):
         return "<Oplog %r>" % self.id
 
-
 # if __name__ == "__main__":
-    # db.create_all()
-    # role = Role(
-    #     name="超级管理员",
-    #     auths=""
-    # )
-    # db.session.add(role)
-    # db.session.commit()
-    # from werkzeug.security import generate_password_hash
-    # admin = Admin(
-    #     name="imoocmovie",
-    #     pwd=generate_password_hash("123456"),
-    #     is_super=0,
-    #     role_id=1
-    # )
-    # db.session.add(admin)
-    # db.session.commit()
+# db.create_all()
+# role = Role(
+#     name="超级管理员",
+#     auths=""
+# )
+# db.session.add(role)
+# db.session.commit()
+# from werkzeug.security import generate_password_hash
+# admin = Admin(
+#     name="imoocmovie",
+#     pwd=generate_password_hash("123456"),
+#     is_super=0,
+#     role_id=1
+# )
+# db.session.add(admin)
+# db.session.commit()
