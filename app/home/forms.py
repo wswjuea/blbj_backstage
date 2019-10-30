@@ -55,7 +55,7 @@ class RegistForm(FlaskForm):
         label="确认密码",
         validators=[
             DataRequired("请输入确认密码!"),
-            EqualTo('pwd', "两次密码不一致!")
+            EqualTo('pwd', message="两次密码不一致!")
         ],
         description="确认密码",
         render_kw={
