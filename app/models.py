@@ -2,6 +2,14 @@ from datetime import datetime
 from app import db
 
 
+class Promotion_name(db.Model):
+    __tablename__ = "promotion_name"
+    id = db.Column(db.Integer, primary_key=True)
+    presale_license_number = db.Column(db.String(255))
+    building_name = db.Column(db.String(255))
+    building_promotion_name = db.Column(db.String(255))
+
+
 # 会员
 class User(db.Model):
     __tablename__ = "user"
